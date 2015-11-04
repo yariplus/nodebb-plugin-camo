@@ -1,5 +1,7 @@
 # <img alt="nodebb-plugin-camo logo" src="https://img.minora.io/banner/github/camo.png" />
 
+[![Join the chat at https://gitter.im/minora-oss/nodebb-plugin-camo](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/minora-oss/nodebb-plugin-camo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 nodebb-plugin-camo is a [NodeBB](https://github.com/NodeBB/NodeBB) plugin for routing embedded images through a secure [camo proxy](https://github.com/atmos/camo)
 
 ### Requirements
