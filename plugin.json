@@ -1,0 +1,13 @@
+{
+  "id": "nodebb-plugin-camo",
+  "name": "NodeBB Camo",
+  "description": "Route embedded images through a secure camo proxy",
+  "url": "https://github.com/minora-oss/nodebb-plugin-camo",
+  "library": "./library.js",
+  "hooks": [{
+    "hook": "filter:post.parse",
+    "method": "parse",
+    "callbacked": true,
+    "priority": 6
+  }]
+}

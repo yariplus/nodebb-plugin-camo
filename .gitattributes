@@ -1,0 +1,36 @@
+* text=auto
+
+*.js text eol=crlf
+*.JS text eol=crlf
+*.json text eol=crlf
+*.JSON text eol=crlf
+*.yml text eol=crlf
+*.YML text eol=crlf
+*.scss text eol=crlf
+*.SCSS text eol=crlf
+*.css text eol=crlf
+*.CSS text eol=crlf
+*.hbs text eol=crlf
+*.HBS text eol=crlf
+*.html text eol=crlf
+*.HTML text eol=crlf
+*.md text eol=crlf
+*.MD text eol=crlf
+
+*.doc diff=astextplain
+*.DOC diff=astextplain
+*.docx diff=astextplain
+*.DOCX diff=astextplain
+*.dot diff=astextplain
+*.DOT diff=astextplain
+*.pdf diff=astextplain
+*.PDF diff=astextplain
+*.rtf diff=astextplain
+*.RTF diff=astextplain
+
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.JPG filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.JPEG filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
+*.PNG filter=lfs diff=lfs merge=lfs -text

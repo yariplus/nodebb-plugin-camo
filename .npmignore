@@ -1,0 +1,10 @@
+npm-debug.log
+node_modules/
+sftp-config.json
+*.sublime-project
+*.sublime-workspace
+.project
+.idea
+*.swp
+error.log
+events.log

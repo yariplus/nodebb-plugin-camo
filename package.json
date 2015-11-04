@@ -1,0 +1,47 @@
+{
+  "name": "nodebb-plugin-camo",
+  "version": "0.0.1",
+  "homepage": "https://github.com/minora-oss/nodebb-plugin-camo",
+  "description": "Route embedded images through a secure camo proxy",
+  "main": "library.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/minora-oss/nodebb-plugin-camo"
+  },
+  "scripts": {
+    "test": "echo \"Info: There are no tests specified yet\" && exit 0"
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "camo",
+    "secure",
+    "images"
+  ],
+  "author": {
+    "name": "Minora Network",
+    "email": "administrator@minora.io"
+  },
+  "contributors": [
+    {
+      "name": "yariplus",
+      "email": "yariplus@minora.io"
+    },
+    {
+      "name": "lenovouser",
+      "email": "lenovouser@minora.io"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/minora-oss/nodebb-plugin-camo/issues",
+    "email": "issues@minora.io"
+  },
+  "readmeFilename": "readme.md",
+  "dependencies": {
+    "camo-url": "^0.1.2"
+  },
+  "nbbpm": {
+    "compatibility": "^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0"
+  }
+}
