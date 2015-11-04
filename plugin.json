@@ -5,9 +5,13 @@
   "url": "https://github.com/minora-oss/nodebb-plugin-camo",
   "library": "./library.js",
   "hooks": [{
+    "hook": "static:app.load",
+    "method": "init"
+  }, {
     "hook": "filter:post.parse",
     "method": "parse",
     "callbacked": true,
     "priority": 6
-  }]
+  }],
+  "templates": "./public/templates"
 }
