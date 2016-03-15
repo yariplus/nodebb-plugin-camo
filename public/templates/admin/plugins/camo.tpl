@@ -37,3 +37,15 @@
         </div>
     </div>
 </form>
+
+<script>
+require(['settings'], function(settings) {
+	settings.sync('camo', $('#camo'));
+
+	$('#save').click( function (event) {
+		settings.persist('camo', $('#camo'), function(){
+			socket.emit('admin.settings.syncCamo');
+		});
+	});
+});
+</script>

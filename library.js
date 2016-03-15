@@ -1,21 +1,35 @@
 'use strict';
 
-var camo = require('camo-url')({
-  // TODO: Get host and key from the NodeBB settings / admin panel
-  host: config.host,
-  key: config.key,
-  type: 'path'
-});
-var controllers = require('./lib/controllers');
+var Settings = module.parent.require("./settings");
+var SocketAdmin = module.parent.require('./socket.io/admin');
+
+var controllers = require('./lib/controller');
+
 var plugin = {};
+
+var settings;
+var camoUrl;
 
 plugin.init = function(params, callback) {
   var router = params.router;
   var hostMiddleware = params.middleware;
   var hostControllers = params.controllers;
 
+  settings = new Settings('camo', '1.0.0', {host: "", key: ""}, sync);
+
   router.get('/admin/plugins/camo', hostMiddleware.admin.buildHeader, controllers.renderAdminPage);
   router.get('/api/admin/plugins/camo', controllers.renderAdminPage);
+
+  SocketAdmin.settings.syncCamo = function () {
+    settings.sync(sync);
+  };
+
+  function sync() {
+    camoUrl = require('camo-url')({
+      host: settings.get('host'),
+      key: settings.get('key')
+    });
+  }
 
   callback();
 };
@@ -30,10 +44,12 @@ plugin.addAdminNavigation = function(header, callback) {
   callback(null, header);
 };
 
-plugin.parse = function(postContent, callback) {
-  // TODO: Replace all URL's with the hmac encrypted version - camo('https://www.example.com/example.jpg') returns the hmac encrypted url
-	postContent = postContent;
-	callback(null, postContent);
+plugin.parse = function(data, callback) {
+  data.postData.content = data.postData.content.replace(/"http[^s].*?"/g, function (match) {
+  match = match.slice(1,-1)
+    return '"'+camoUrl(match)+'"';
+  });
+  callback(null, data);
 };
 
 module.exports = plugin;

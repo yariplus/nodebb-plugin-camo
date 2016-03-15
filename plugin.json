@@ -7,11 +7,13 @@
   "hooks": [{
     "hook": "static:app.load",
     "method": "init"
+  },{
+    "hook": "filter:admin.header.build",
+	"method": "addAdminNavigation"
   }, {
-    "hook": "filter:post.parse",
+    "hook": "filter:parse.post",
     "method": "parse",
-    "callbacked": true,
-    "priority": 6
+    "priority": 10
   }],
   "templates": "./public/templates"
 }
