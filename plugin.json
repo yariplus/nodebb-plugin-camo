@@ -13,7 +13,11 @@
   }, {
     "hook": "filter:parse.post",
     "method": "parse",
-    "priority": 10
+    "priority": 100
+  }, {
+    "hook": "filter:post.parse",
+    "method": "parse",
+    "priority": 100
   }],
   "templates": "./public/templates"
 }
