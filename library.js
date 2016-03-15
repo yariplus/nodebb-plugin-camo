@@ -45,9 +45,8 @@ plugin.addAdminNavigation = function(header, callback) {
 };
 
 plugin.parse = function(data, callback) {
-  data.postData.content = data.postData.content.replace(/"http[^s].*?"/g, function (match) {
-  match = match.slice(1,-1)
-    return '"'+camoUrl(match)+'"';
+  data.postData.content = data.postData.content.replace(/<img[^>]+src=['"](http[^s][^'"]+)['"][^>]+>/gi, function (match, url) {
+    return match.replace(url, camoUrl(url));
   });
   callback(null, data);
 };
