@@ -11,14 +11,23 @@
                     <div class="form-group">
                         <label class="control-label" for="key">
                             Camo Host
-                            <input type="text" class="form-control" data-key="host" id="host" placeholder="camo.example.tld"></input>
                         </label>
+                        <input type="text" class="form-control" data-key="host" id="host" placeholder="camo.example.tld"></input>
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="key">
                             Camo Key
-                            <input type="text" class="form-control" data-key="key" id="key" placeholder=""></input>
                         </label>
+                        <input type="text" class="form-control" data-key="key" id="key" placeholder=""></input>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="type">
+                            URL Type
+                        </label>
+                        <select class="form-control" data-key="type" id="type">
+                            <option value="path" selected="selected">Encoded Path</option>
+                            <option value="query">Query String</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -40,12 +49,12 @@
 
 <script>
 require(['settings'], function(settings) {
-	settings.sync('camo', $('#camo'));
+    settings.sync('camo', $('#camo'));
 
-	$('#save').click( function (event) {
-		settings.persist('camo', $('#camo'), function(){
-			socket.emit('admin.settings.syncCamo');
-		});
-	});
+    $('#save').click( function (event) {
+        settings.persist('camo', $('#camo'), function(){
+            socket.emit('admin.settings.syncCamo');
+        });
+    });
 });
 </script>

@@ -15,7 +15,7 @@ plugin.init = function(params, callback) {
   var hostMiddleware = params.middleware;
   var hostControllers = params.controllers;
 
-  settings = new Settings('camo', '1.0.0', {host: "", key: ""}, sync);
+  settings = new Settings('camo', '1.0.0', {host: "", key: "", type: "path"}, sync);
 
   router.get('/admin/plugins/camo', hostMiddleware.admin.buildHeader, controllers.renderAdminPage);
   router.get('/api/admin/plugins/camo', controllers.renderAdminPage);
@@ -27,7 +27,8 @@ plugin.init = function(params, callback) {
   function sync() {
     camoUrl = require('camo-url')({
       host: settings.get('host'),
-      key: settings.get('key')
+      key: settings.get('key'),
+    type: settings.get('type')
     });
   }
 
