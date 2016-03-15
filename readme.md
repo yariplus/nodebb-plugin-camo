@@ -14,8 +14,6 @@ nodebb-plugin-camo requires the following software to be installed:
 
 ### Installation
 
-**NOTE: This plugin is currently not on NPM at this time.**
-
 NodeBB expects any installed plugins to be installed via `npm`.
 You can install nodebb-plugin-camo through the command line by using the following command:
 
