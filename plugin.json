@@ -12,7 +12,11 @@
 	"method": "addAdminNavigation"
   }, {
     "hook": "filter:parse.post",
-    "method": "parse",
+    "method": "parsePost",
+    "priority": 100
+  }, {
+    "hook": "filter:parse.raw",
+    "method": "parseRaw",
     "priority": 100
   }, {
     "hook": "filter:post.parse",

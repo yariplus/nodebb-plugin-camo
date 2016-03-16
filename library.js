@@ -45,11 +45,18 @@ plugin.addAdminNavigation = function(header, callback) {
   callback(null, header);
 };
 
-plugin.parse = function(data, callback) {
-  data.postData.content = data.postData.content.replace(/<img[^>]+src=['"](http[^s][^'"]+)['"][^>]*>/gi, function (match, url) {
+plugin.parseRaw = function(content, callback) {
+  content = content.replace(/<img[^>]+src=['"](http[^s][^'"]+)['"][^>]*>/gi, function (match, url) {
     return match.replace(url, camoUrl(url));
   });
-  callback(null, data);
+  callback(null, content);
+};
+
+plugin.parsePost = function(data, callback) {
+  plugin.parseRaw(data.postData.content, function(err, content){
+    data.postData.content = content;
+    callback(null, data);
+  });
 };
 
 module.exports = plugin;
