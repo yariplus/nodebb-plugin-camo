@@ -28,7 +28,7 @@ plugin.init = function(params, callback) {
     camoUrl = require('camo-url')({
       host: settings.get('host'),
       key: settings.get('key'),
-    type: settings.get('type')
+      type: settings.get('type')
     });
   }
 
