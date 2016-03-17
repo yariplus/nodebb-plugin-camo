@@ -9,6 +9,12 @@ var plugin = {};
 
 var settings;
 var camoUrl;
+var camo;
+
+// Kill worker when nodebb closes/crashes.
+process.on("uncaughtException", killWorker);
+process.on("SIGINT", killWorker);
+process.on("SIGTERM", killWorker);
 
 plugin.init = function(params, callback) {
   var router = params.router;
@@ -30,6 +36,19 @@ plugin.init = function(params, callback) {
       key: settings.get('key'),
       type: settings.get('type')
     });
+
+    if (settings.get('useCamoProxy')) {
+      killWorker();
+
+      var camo = require("child_process").spawn('node', ['node_modules/camo/server'], {silent: true, env: {
+        'CAMO_KEY': settings.get('key') || 'banana',
+		'PORT': settings.get('port') || '8082'
+      }});
+
+      camo.stdout.on('data', function (data) { console.log('CAMO PROXY SAYS: ' + data); });
+      camo.stderr.on('data', function (data) { console.log('CAMO PROXY ERROR: ' + data); });
+      camo.on('close', function (code) { console.log('CAMO PROXY exited with code ' + code); });
+    }
   }
 
   callback();
@@ -58,5 +77,9 @@ plugin.parsePost = function(data, callback) {
     callback(null, data);
   });
 };
+
+function killWorker() {
+  if (camo && camo.pid) process.kill(camo.pid);
+}
 
 module.exports = plugin;
