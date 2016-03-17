@@ -39,7 +39,8 @@
   },
   "readmeFilename": "readme.md",
   "dependencies": {
-    "camo-url": "^0.1.3"
+    "camo-url": "^0.1.3",
+    "camo": "git+https://github.com/atmos/camo.git#e6e9f047674f418a24034c68a80babce83573224"
   },
   "nbbpm": {
     "compatibility": "^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0 || ^1.0.0"
