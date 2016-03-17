@@ -55,7 +55,7 @@ plugin.init = function(params, callback) {
     if (settings.get('useCamoProxy')) {
       killWorker();
 
-      console.log("Starting Camo loader...");
+      console.log("Starting Camo worker...");
       var options = {silent: true, env: {
         'CAMO_KEY': settings.get('key') || 'banana',
         'PORT': settings.get('port') || '8082'

@@ -34,7 +34,7 @@
             <div class="panel acp-panel-primary">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        Interal Camo Proxy
+                        Internal Camo Proxy
                     </div>
                 </div>
                 <div class="panel-body">
