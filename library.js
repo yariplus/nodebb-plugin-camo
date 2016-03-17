@@ -10,19 +10,18 @@ var plugin = {};
 
 var settings;
 var camoUrl;
-var camo;
-var local;
+var loader;
 
 var defaultSettings = {
-    host: "",
-    key: "",
-    type: "path",
-    http: 0,
-    useCamoProxy: 0,
-    port: 8082
+  host: "",
+  key: "",
+  type: "path",
+  http: 0,
+  useCamoProxy: 0,
+  port: 8082
 };
 
-// Kill worker when nodebb closes/crashes.
+// Kill worker when nodebb closes/crashes. I have no idea if this is right.
 process.on("uncaughtException", killWorker);
 process.on("SIGINT", killWorker);
 process.on("SIGHUP", killWorker);
@@ -56,28 +55,15 @@ plugin.init = function(params, callback) {
     if (settings.get('useCamoProxy')) {
       killWorker();
 
-      console.log("Starting Camo worker...");
+      console.log("Starting Camo loader...");
       var options = {silent: true, env: {
         'CAMO_KEY': settings.get('key') || 'banana',
         'PORT': settings.get('port') || '8082'
       }};
 
-      local = false;
-      camo = require("child_process").spawn('node', ['/node_modules/camo/server'], options);
-
-      camo.stdout.on('data', function (data) { console.log('CAMO PROXY SAYS: ' + data); });
-      camo.stderr.on('data', function (data) { if (local) console.log('CAMO PROXY ERROR: ' + data); });
-      camo.on('close', function (code) {
-        if (!local) {
-          local = true;
-          camo = require("child_process").fork(__dirname + '/node_modules/camo/server', [], options);
-        }else{
-          console.log('CAMO PROXY exited with code ' + code);
-        }
-      });
-	  camo.on('disconnect', function() {
-        camo.exit();
-      });
+      loader = require("child_process").fork(__dirname + '/server', [], options);
+      loader.stdout.on('data', function (data) { console.log('CAMO PROXY SAYS: ' + data); });
+      loader.stderr.on('data', function (data) {});
     }
   }
 
@@ -115,8 +101,8 @@ plugin.reload = function (data, next) {
 
 function killWorker() {
   try {
-    if (camo && camo.pid) {
-      camo.kill();
+    if (loader) {
+      loader.kill();
       console.log("Closed Camo worker.");
     }
   }catch(e){
