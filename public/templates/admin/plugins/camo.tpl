@@ -31,6 +31,29 @@
                     </div>
                 </div>
             </div>
+            <div class="panel acp-panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        Interal Camo Proxy
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label for="useCamoProxy">
+                                <input data-key="useCamoProxy" id="useCamoProxy" type="checkbox">
+                                Use internal Camo proxy.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="port">
+                            Camo Port
+                        </label>
+                        <input type="number" class="form-control" data-key="port" id="port" placeholder="8082"></input>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-lg-3">
             <div class="panel acp-panel-primary">
@@ -38,7 +61,7 @@
                     Action Panel
                 </div>
                 <div class="panel-body">
-                    <button type="submit" class="btn btn-success form-control" accesskey="s" id="save">
+                    <button type="button" class="btn btn-success form-control" accesskey="s" id="save">
                         <i class="fa fa-fw fa-save"></i> Save Settings
                     </button>
                 </div>

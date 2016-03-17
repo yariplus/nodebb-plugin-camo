@@ -7,6 +7,9 @@
   "hooks": [{
     "hook": "static:app.load",
     "method": "init"
+  },{
+    "hook": "static:app.reload",
+    "method": "reload"
   }, {
     "hook": "filter:admin.header.build",
 	"method": "addAdminNavigation"
