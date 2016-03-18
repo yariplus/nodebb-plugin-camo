@@ -8,6 +8,9 @@ var camo = require("child_process").spawn('node', [__dirname + '/node_modules/ca
 camo.stdout.on('data', process.stdout.write);
 camo.stderr.on('data', function(){});
 
-process.on('disconnect', function(){
-  camo.exit();
-});
+process.on('SIGHUP', killWorker);
+process.on('disconnect', killWorker);
+
+function killWorker() {
+  camo.kill('SIGHUP');
+}

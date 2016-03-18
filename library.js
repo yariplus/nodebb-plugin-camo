@@ -38,23 +38,22 @@ plugin.init = function(params, callback) {
   router.get('/admin/plugins/camo', hostMiddleware.admin.buildHeader, controllers.renderAdminPage);
   router.get('/api/admin/plugins/camo', controllers.renderAdminPage);
 
-  SocketAdmin.settings.syncCamo = function (socket, data, next) {
+  SocketAdmin.settings.syncCamo = function () {
     settings.sync(sync);
-    next();
+    console.log("Settings saved for Camo.");
   };
 
   function sync() {
-    console.log("Settings saved for Camo.");
-
     camoUrl = require('camo-url')({
       host: settings.get('host'),
       key: settings.get('key'),
       type: settings.get('type')
     });
 
-    if (settings.get('useCamoProxy')) {
-      killWorker();
+    // Kill any previously started camo worker.
+    killWorker();
 
+    if (settings.get('useCamoProxy')) {
       console.log("Starting Camo worker...");
       var options = {silent: true, env: {
         'CAMO_KEY': settings.get('key') || 'banana',
@@ -102,7 +101,7 @@ plugin.reload = function (data, next) {
 function killWorker() {
   try {
     if (loader) {
-      loader.kill();
+      loader.kill('SIGHUP');
       console.log("Closed Camo worker.");
     }
   }catch(e){
