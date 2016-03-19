@@ -110,6 +110,13 @@ plugin.parsePost = function(data, callback) {
   });
 };
 
+plugin.parseSignature = function(data, callback) {
+  plugin.parseRaw(data.userData.signature, function(err, content){
+    data.userData.signature = content;
+    callback(null, data);
+  });
+};
+
 plugin.reload = function (data, next) {
   killWorker();
   next();

@@ -23,7 +23,15 @@
     "priority": 100
   }, {
     "hook": "filter:post.parse",
-    "method": "parse",
+    "method": "parsePost",
+    "priority": 100
+  }, {
+    "hook": "filter:parse.signature",
+    "method": "parseSignature",
+    "priority": 100
+  }, {
+    "hook": "filter:signature.parse",
+    "method": "parseSignature",
     "priority": 100
   }],
   "templates": "./public/templates"
