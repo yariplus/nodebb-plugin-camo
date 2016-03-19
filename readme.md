@@ -27,7 +27,7 @@ npm i nodebb-plugin-camo
 
 ### Screenshots
 
-(WIP)
+![Camo Controlpanel](https://puu.sh/nMqgg/4dcb9fc536.png)
 
 ### Contributing
 
