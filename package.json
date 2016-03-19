@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-camo",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "homepage": "https://github.com/minora-oss/nodebb-plugin-camo",
   "description": "Route embedded images through a secure camo proxy",
   "main": "library.js",
