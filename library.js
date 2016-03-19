@@ -57,7 +57,7 @@ plugin.init = function(params, callback) {
   function sync() {
     if (settings.get('https')) {
       regex = /<img[^>]+src=['"](http[^'"]+)['"][^>]*>/gi;
-    }else{
+    } else {
       regex = /<img[^>]+src=['"](http[^s][^'"]+)['"][^>]*>/gi;
     }
 

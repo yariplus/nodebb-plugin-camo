@@ -8,3 +8,12 @@ sftp-config.json
 *.swp
 error.log
 events.log
+.bithoundrc
+.gitattributes
+.gitignore
+.jshintrc
+.tern-project
+.travis.yml
+contributing.md
+license.md
+readme.md

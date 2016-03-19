@@ -66,7 +66,7 @@
                         <label class="control-label" for="sslCert">
                             SSL Certificate Location
                         </label>
-                        <input type="text" class="form-control" data-key="sslCert" id="sslCert" placeholder="/etc/letsencrypt/live/example.com/cert.pem"></input>
+                        <input type="text" class="form-control" data-key="sslCert" id="sslCert" placeholder="/etc/letsencrypt/live/example.com/fullchain.pem"></input>
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="sslKey">
@@ -94,7 +94,7 @@
 </form>
 
 <script>
-require(['settings', 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.8/clipboard.min.js'], function(settings, Clipboard) {
+require(['settings', 'https://cdn.jsdelivr.net/clipboard.js/1.5.9/clipboard.min.js'], function(settings, Clipboard) {
     settings.sync('camo', $('#camo'), function () {
         if ($('[data-key="useCamoProxy"]').is(':checked')) {
             $('[data-key="key"]').attr('disabled', '');
@@ -159,7 +159,7 @@ var template = "server {\n\
             var block = template
             .replace('<path-to-your-certificate>', $('[data-key="sslCert"]').val())
             .replace('<path-to-your-key>', $('[data-key="sslKey"]').val())
-            .replace('<domain>', $('[data-key="host"]').val())
+            .replace('<domain>', $('[data-key="host"]').val().replace(/^(https?):\/\//, ''))
             .replace('<port>', $('[data-key="port"]').val());
             return block;
         }
