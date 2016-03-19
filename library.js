@@ -11,12 +11,13 @@ var plugin = {};
 var settings;
 var camoUrl;
 var loader;
+var regex;
 
 var defaultSettings = {
   host: "",
   key: "",
   type: "path",
-  http: 0,
+  https: 0,
   useCamoProxy: 0,
   port: 8082
 };
@@ -44,6 +45,12 @@ plugin.init = function(params, callback) {
   };
 
   function sync() {
+    if (settings.get('https')) {
+      regex = /<img[^>]+src=['"](http[^'"]+)['"][^>]*>/gi;
+    }else{
+      regex = /<img[^>]+src=['"](http[^s][^'"]+)['"][^>]*>/gi;
+    }
+
     camoUrl = require('camo-url')({
       host: settings.get('host'),
       key: settings.get('key'),
@@ -80,7 +87,7 @@ plugin.addAdminNavigation = function(header, callback) {
 };
 
 plugin.parseRaw = function(content, callback) {
-  content = content.replace(/<img[^>]+src=['"](http[^s][^'"]+)['"][^>]*>/gi, function (match, url) {
+  content = content.replace(regex, function (match, url) {
     return match.replace(url, camoUrl(url));
   });
   callback(null, content);
