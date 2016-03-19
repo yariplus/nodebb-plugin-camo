@@ -60,21 +60,21 @@
                         </label>
                         <input type="number" class="form-control" data-key="port" id="port" placeholder="8082"></input>
                     </div>
-					<br><br>
-					<h5>NGINX Server Block Generation</h5>
+                    <br><br>
+                    <h5>NGINX Server Block Generation</h5>
                     <div class="form-group">
                         <label class="control-label" for="sslCert">
                             SSL Certificate Location
                         </label>
                         <input type="text" class="form-control" data-key="sslCert" id="sslCert" placeholder="/etc/letsencrypt/live/example.com/cert.pem"></input>
                     </div>
-					<div class="form-group">
+                    <div class="form-group">
                         <label class="control-label" for="sslKey">
                             SSL Certificate Key Location
                         </label>
                         <input type="text" class="form-control" data-key="sslKey" id="sslKey" placeholder="/etc/letsencrypt/live/example.com/privkey.pem"></input>
                     </div>
-					<button type="button" class="btn btn-success nginx">Copy NGINX Server Block</button>
+                    <button type="button" class="btn btn-success nginx">Copy NGINX Server Block</button>
                 </div>
             </div>
         </div>
@@ -95,12 +95,30 @@
 
 <script>
 require(['settings', 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.8/clipboard.min.js'], function(settings, Clipboard) {
-    settings.sync('camo', $('#camo'));
+    settings.sync('camo', $('#camo'), function () {
+        if ($('[data-key="useCamoProxy"]').is(':checked')) {
+            $('[data-key="key"]').attr('disabled', '');
+            $('[data-key="key"]').data('val', $('[data-key="key"]').val());
+            $('[data-key="key"]').val('internal');
+        }
+    });
 
     $('#save').click( function (event) {
+        if ($('[data-key="key"]').val() === 'internal') $('[data-key="key"]').val($('[data-key="key"]').data('val'));
         settings.persist('camo', $('#camo'), function(){
             socket.emit('admin.settings.syncCamo');
         });
+    });
+
+    $('[data-key="useCamoProxy"]').change(function() {
+        if($(this).is(":checked")) {
+            $('[data-key="key"]').attr('disabled', '');
+            $('[data-key="key"]').data('val', $('[data-key="key"]').val());
+            $('[data-key="key"]').val('internal');
+        }else{
+            $('[data-key="key"]').removeAttr('disabled');
+            $('[data-key="key"]').val($('[data-key="key"]').data('val'));
+        }
     });
 
 var template = "server {\n\
@@ -136,25 +154,25 @@ var template = "server {\n\
 }\n\
 ";
 
-	var clipboard = new Clipboard('.nginx', {
-		text: function(trigger) {
-			var block = template
-			.replace('<path-to-your-certificate>', $('[data-key="sslCert"]').val())
-			.replace('<path-to-your-key>', $('[data-key="sslKey"]').val())
-			.replace('<domain>', $('[data-key="host"]').val())
-			.replace('<port>', $('[data-key="port"]').val());
-			return block;
-		}
-	});
+    var clipboard = new Clipboard('.nginx', {
+        text: function(trigger) {
+            var block = template
+            .replace('<path-to-your-certificate>', $('[data-key="sslCert"]').val())
+            .replace('<path-to-your-key>', $('[data-key="sslKey"]').val())
+            .replace('<domain>', $('[data-key="host"]').val())
+            .replace('<port>', $('[data-key="port"]').val());
+            return block;
+        }
+    });
 
-	$('.nginx').mouseout(function () {
-		$(this).tooltip('destroy');
-	});
+    $('.nginx').mouseout(function () {
+        $(this).tooltip('destroy');
+    });
 
-	clipboard.on('success', function(e) {
-		e.clearSelection();
-		$(e.trigger).tooltip({title:'Copied!',placement:'bottom'});
-		$(e.trigger).tooltip('show');
-	});
+    clipboard.on('success', function(e) {
+        e.clearSelection();
+        $(e.trigger).tooltip({title:'Copied!',placement:'bottom'});
+        $(e.trigger).tooltip('show');
+    });
 });
 </script>
