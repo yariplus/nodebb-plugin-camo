@@ -40,7 +40,17 @@ plugin.init = function(params, callback) {
   router.get('/api/admin/plugins/camo', controllers.renderAdminPage);
 
   SocketAdmin.settings.syncCamo = function () {
-    settings.sync(sync);
+    settings.sync(function(){
+      if (settings.get('useCamoProxy')) {
+        require('crypto').randomBytes(48, function(err, buf) {
+          settings.set('key', buf.toString('base64').replace(/\//g, '='));
+          settings.persist();
+          sync();
+        });
+      }else{
+        sync();
+      }
+    });
     console.log("Settings saved for Camo.");
   };
 
