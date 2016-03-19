@@ -159,7 +159,7 @@ var template = "server {\n\
             var block = template
             .replace('<path-to-your-certificate>', $('[data-key="sslCert"]').val())
             .replace('<path-to-your-key>', $('[data-key="sslKey"]').val())
-            .replace('<domain>', $('[data-key="host"]').val().replace(/^(https?):\/\//, ''))
+            .replace('<domain>', $('[data-key="host"]').val().replace(/(?:https?:)?\/\/|\//, ''))
             .replace('<port>', $('[data-key="port"]').val());
             return block;
         }
