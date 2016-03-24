@@ -1,4 +1,4 @@
-# <img alt="nodebb-plugin-camo logo" src="https://img.minora.io/banner/github/camo.png" />
+# <img alt="nodebb-plugin-camo logo" src="https://img.minora.io/banner/git/camo.png" />
 
 # Contributing to nodebb-plugin-camo
 
