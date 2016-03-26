@@ -128,25 +128,10 @@ var template = "server {\n\
     access_log off;\n\
     error_log /dev/null;\n\
 \n\
-    ssl_session_cache         shared:SSL:10m;\n\
-    ssl_session_timeout       10m;\n\
-    ssl_session_tickets       off;\n\
-    ssl_prefer_server_ciphers on;\n\
-    ssl_ciphers               'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';\n\
-    ssl_ecdh_curve            secp384r1;\n\
-    ssl_buffer_size           1400;\n\
-    ssl_protocols             TLSv1 TLSv1.1 TLSv1.2;\n\
-\n\
     ssl_certificate           <path-to-your-certificate>;\n\
     ssl_certificate_key       <path-to-your-key>;\n\
 \n\
-    charset utf-8;\n\
-\n\
     location / {\n\
-        proxy_set_header X-Real-IP       $remote_addr;\n\
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n\
-        proxy_set_header Host            $http_host;\n\
-        proxy_set_header X-NginX-Proxy   true;\n\
         proxy_redirect                   off;\n\
         proxy_http_version               1.1;\n\
         proxy_pass                       http://localhost:<port>;\n\
