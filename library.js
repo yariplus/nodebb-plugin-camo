@@ -1,3 +1,5 @@
+(function(){
+
 'use strict';
 
 var NodeBB = module.parent;
@@ -6,9 +8,7 @@ var SocketAdmin = NodeBB.require('./socket.io/admin');
 
 var winston = require.main.require('winston');
 
-var controllers = require('./lib/controller');
-
-var plugin = {};
+var controllers = require('./lib/controllers');
 
 var settings;
 var camoUrl;
@@ -30,6 +30,8 @@ var CP = "[CamoProxy]: ";
 // Kill worker when nodebb closes/crashes. I have no idea if this is right.
 // TODO: Find an adult.
 process.on("uncaughtException", killWorker);
+process.on("disconnect", killWorker);
+process.on("exit", killWorker);
 process.on("SIGINT", killWorker);
 process.on("SIGHUP", killWorker);
 process.on("SIGUSR2", killWorker);
@@ -37,7 +39,7 @@ process.on("SIGTERM", killWorker);
 
 var isReloading = false;
 
-plugin.init = function(params, callback) {
+exports.init = function(params, callback) {
   isReloading = false;
 
   var router = params.router;
@@ -91,16 +93,17 @@ plugin.init = function(params, callback) {
         'PORT': settings.get('port') || '8082'
       }};
 
-      loader = require("child_process").fork(__dirname + '/server', [], options);
+      loader = require("child_process").spawn('node', [__dirname + '/node_modules/camo/server'], options);
+
       loader.stdout.on('data', function (data) { winston.info(CP + data); });
-      loader.stderr.on('data', function (data) { if (!isReloading) winston.error(CP + data); });
+      loader.stderr.on('data', function (data) { if (true || !isReloading) winston.error(CP + data); });
     }
   }
 
   callback();
 };
 
-plugin.addAdminNavigation = function(header, callback) {
+exports.addAdminNavigation = function(header, callback) {
   header.plugins.push({
     route: '/plugins/camo',
     icon: 'fa-image',
@@ -110,28 +113,28 @@ plugin.addAdminNavigation = function(header, callback) {
   callback(null, header);
 };
 
-plugin.parseRaw = function(content, callback) {
+exports.parseRaw = function(content, callback) {
   content = content.replace(regex, function (match, url) {
     return match.replace(url, camoUrl(url));
   });
   callback(null, content);
 };
 
-plugin.parsePost = function(data, callback) {
-  plugin.parseRaw(data.postData.content, function(err, content){
+exports.parsePost = function(data, callback) {
+  exports.parseRaw(data.postData.content, function(err, content){
     data.postData.content = content;
     callback(null, data);
   });
 };
 
-plugin.parseSignature = function(data, callback) {
-  plugin.parseRaw(data.userData.signature, function(err, content){
+exports.parseSignature = function(data, callback) {
+  exports.parseRaw(data.userData.signature, function(err, content){
     data.userData.signature = content;
     callback(null, data);
   });
 };
 
-plugin.reload = function (data, next) {
+exports.reload = function (data, next) {
   killWorker();
   isReloading = true;
   next();
@@ -144,7 +147,8 @@ function killWorker() {
       winston.info(C + "Closed Camo worker.");
     }
   }catch(e){
+    winston.error(C + e);
   }
 }
 
-module.exports = plugin;
+}());
