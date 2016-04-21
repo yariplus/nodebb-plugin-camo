@@ -95,6 +95,14 @@
 
 <script>
 require(['settings', 'https://cdn.jsdelivr.net/clipboard.js/1.5.9/clipboard.min.js'], function(settings, Clipboard) {
+
+    var $key = $('[data-key="key"]');
+    var $host = $('[data-key="host"]');
+
+    function validateInputs() {
+        if (!$host.val().match(/https?:\/\/.*\//)) $host.val('https://' + $host.val() + '/');
+    }
+
     settings.sync('camo', $('#camo'), function () {
         if ($('[data-key="useCamoProxy"]').is(':checked')) {
             $('[data-key="key"]').attr('disabled', '');
@@ -104,7 +112,9 @@ require(['settings', 'https://cdn.jsdelivr.net/clipboard.js/1.5.9/clipboard.min.
     });
 
     $('#save').click( function (event) {
-        if ($('[data-key="key"]').val() === 'internal') $('[data-key="key"]').val($('[data-key="key"]').data('val'));
+        if ($key.val() === 'internal') $key.val($key.data('val'));
+        validateInputs();
+
         settings.persist('camo', $('#camo'), function(){
             socket.emit('admin.settings.syncCamo');
         });
@@ -141,10 +151,11 @@ var template = "server {\n\
 
     var clipboard = new Clipboard('.nginx', {
         text: function(trigger) {
+            validateInputs();
             var block = template
             .replace('<path-to-your-certificate>', $('[data-key="sslCert"]').val())
             .replace('<path-to-your-key>', $('[data-key="sslKey"]').val())
-            .replace('<domain>', $('[data-key="host"]').val().replace(/(?:https?:)?\/\/|\//, ''))
+            .replace('<domain>', $('[data-key="host"]').val().replace(/(?:https?:)?\/\/|\//g, ''))
             .replace('<port>', $('[data-key="port"]').val());
             return block;
         }
