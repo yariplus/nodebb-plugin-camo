@@ -4,6 +4,8 @@ var NodeBB = module.parent;
 var Settings = NodeBB.require("./settings");
 var SocketAdmin = NodeBB.require('./socket.io/admin');
 
+var winston = require.main.require('winston');
+
 var controllers = require('./lib/controller');
 
 var plugin = {};
@@ -22,7 +24,11 @@ var defaultSettings = {
   port: 8082
 };
 
+var C = "[Camo]: ";
+var CP = "[CamoProxy]: ";
+
 // Kill worker when nodebb closes/crashes. I have no idea if this is right.
+// TODO: Find an adult.
 process.on("uncaughtException", killWorker);
 process.on("SIGINT", killWorker);
 process.on("SIGHUP", killWorker);
@@ -55,7 +61,7 @@ plugin.init = function(params, callback) {
         sync();
       }
     });
-    console.log("Settings saved for Camo.");
+    winston.info(C + "Settings saved.");
   };
 
   function sync() {
@@ -75,15 +81,15 @@ plugin.init = function(params, callback) {
     killWorker();
 
     if (settings.get('useCamoProxy')) {
-      console.log("Starting Camo worker...");
+      winston.info(C + "Starting Camo worker...");
       var options = {silent: true, env: {
         'CAMO_KEY': settings.get('key'),
         'PORT': settings.get('port') || '8082'
       }};
 
       loader = require("child_process").fork(__dirname + '/server', [], options);
-      loader.stdout.on('data', function (data) { console.log('CAMO PROXY SAYS: ' + data); });
-      loader.stderr.on('data', function (data) {});
+      loader.stdout.on('data', function (data) { winston.info(CP + data); });
+      loader.stderr.on('data', function (data) { winston.error(CP + data); });
     }
   }
 
@@ -130,7 +136,7 @@ function killWorker() {
   try {
     if (loader) {
       loader.kill('SIGHUP');
-      console.log("Closed Camo worker.");
+      winston.info(C + "Closed Camo worker.");
     }
   }catch(e){
   }
