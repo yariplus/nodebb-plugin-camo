@@ -35,7 +35,11 @@ process.on("SIGHUP", killWorker);
 process.on("SIGUSR2", killWorker);
 process.on("SIGTERM", killWorker);
 
+var isReloading = false;
+
 plugin.init = function(params, callback) {
+  isReloading = false;
+
   var router = params.router;
   var hostMiddleware = params.middleware;
   var hostControllers = params.controllers;
@@ -89,7 +93,7 @@ plugin.init = function(params, callback) {
 
       loader = require("child_process").fork(__dirname + '/server', [], options);
       loader.stdout.on('data', function (data) { winston.info(CP + data); });
-      loader.stderr.on('data', function (data) { winston.error(CP + data); });
+      loader.stderr.on('data', function (data) { if (!isReloading) winston.error(CP + data); });
     }
   }
 
@@ -129,6 +133,7 @@ plugin.parseSignature = function(data, callback) {
 
 plugin.reload = function (data, next) {
   killWorker();
+  isReloading = true;
   next();
 };
 
