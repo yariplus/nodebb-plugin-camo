@@ -12,7 +12,7 @@
                         <label class="control-label" for="key">
                             Camo Host
                         </label>
-                        <input type="text" class="form-control" data-key="host" id="host" placeholder="camo.example.tld"></input>
+                        <input type="text" class="form-control" data-key="host" id="host" placeholder="https://camo.example.tld/"></input>
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="key">
