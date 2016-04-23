@@ -8,8 +8,6 @@ var SocketAdmin = NodeBB.require('./socket.io/admin');
 
 var winston = require.main.require('winston');
 
-var controllers = require('./lib/controllers');
-
 var settings;
 var camoUrl;
 var loader;
@@ -48,22 +46,26 @@ exports.init = function(params, callback) {
 
   settings = new Settings('camo', '1.0.0', defaultSettings, sync);
 
-  router.get('/admin/plugins/camo', hostMiddleware.admin.buildHeader, controllers.renderAdminPage);
-  router.get('/api/admin/plugins/camo', controllers.renderAdminPage);
+  var renderAdminPage = function(req, res) {
+    res.render('admin/plugins/camo');
+  }
+
+  router.get('/admin/plugins/camo', hostMiddleware.admin.buildHeader, renderAdminPage);
+  router.get('/api/admin/plugins/camo', renderAdminPage);
 
   SocketAdmin.settings.syncCamo = function () {
 
     // Only reset the key if it was previously standalone.
     var wasStandalone = !settings.get('useCamoProxy');
 
-    settings.sync(function(){
+    settings.sync(function() {
       if ((settings.get('useCamoProxy') && wasStandalone) || !settings.get('key')) {
         require('crypto').randomBytes(48, function(err, buf) {
           settings.set('key', buf.toString('base64').replace(/\//g, '='));
           settings.persist();
           sync();
         });
-      }else{
+      } else {
         sync();
       }
     });
@@ -93,7 +95,7 @@ exports.init = function(params, callback) {
         'PORT': settings.get('port') || '8082'
       }};
 
-      loader = require("child_process").spawn('node', [__dirname + '/node_modules/camo/server'], options);
+      loader = require("child_process").fork(__dirname + '/server', [], options);
 
       loader.stdout.on('data', function (data) { winston.info(CP + data); });
       loader.stderr.on('data', function (data) { if (true || !isReloading) winston.error(CP + data); });
