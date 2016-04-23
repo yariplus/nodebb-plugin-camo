@@ -107,7 +107,6 @@ require(['settings', 'https://cdn.jsdelivr.net/clipboard.js/1.5.9/clipboard.min.
         if ($('[data-key="useCamoProxy"]').is(':checked')) {
             $('[data-key="key"]').attr('disabled', '');
             $('[data-key="key"]').data('val', $('[data-key="key"]').val());
-            $('[data-key="key"]').val('internal');
         }
     });
 
@@ -118,6 +117,7 @@ require(['settings', 'https://cdn.jsdelivr.net/clipboard.js/1.5.9/clipboard.min.
         settings.persist('camo', $('#camo'), function(){
             socket.emit('admin.settings.syncCamo');
         });
+        location.reload(); // ghetto... refreshes the page to see generated key
     });
 
     $('[data-key="useCamoProxy"]').change(function() {
@@ -125,7 +125,7 @@ require(['settings', 'https://cdn.jsdelivr.net/clipboard.js/1.5.9/clipboard.min.
             $('[data-key="key"]').attr('disabled', '');
             $('[data-key="key"]').data('val', $('[data-key="key"]').val());
             $('[data-key="key"]').val('internal');
-        }else{
+        } else {
             $('[data-key="key"]').removeAttr('disabled');
             $('[data-key="key"]').val($('[data-key="key"]').data('val'));
         }
