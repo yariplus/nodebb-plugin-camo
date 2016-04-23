@@ -1,12 +1,8 @@
-var options = {silent: true, env: {
-  'CAMO_KEY': process.env.CAMO_KEY || 'banana',
-  'PORT': process.env.PORT || '8082'
-}};
 
-var camo = require("child_process").spawn('node', [__dirname + '/node_modules/camo/server'], options);
+var camo = require("child_process").spawn('node', [__dirname + '/node_modules/camo/server'], { silent: true, env: process.env });
 
 camo.stdout.on('data', process.stdout.write);
-camo.stderr.on('data', function(){});
+camo.stderr.on('data', process.stderr.write);
 
 process.on('SIGHUP', killWorker);
 process.on('disconnect', killWorker);

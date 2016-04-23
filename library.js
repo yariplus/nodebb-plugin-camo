@@ -90,15 +90,22 @@ exports.init = function(params, callback) {
 
     if (settings.get('useCamoProxy')) {
       winston.info(C + "Starting Camo worker...");
-      var options = {silent: true, env: {
-        'CAMO_KEY': settings.get('key'),
-        'PORT': settings.get('port') || '8082'
-      }};
+
+      // Copy process.env into envCopy
+      var penv = process.env;
+      var envCopy = {};
+      for (var varName in penv) {
+        envCopy[varName] = penv[varName];
+      }
+      envCopy['CAMO_KEY'] = settings.get('key');
+      envCopy['PORT'] = settings.get('port') || 8082
+
+      var options = {silent: true, env: envCopy};
 
       loader = require("child_process").fork(__dirname + '/server', [], options);
 
       loader.stdout.on('data', function (data) { winston.info(CP + data); });
-      loader.stderr.on('data', function (data) { if (true || !isReloading) winston.error(CP + data); });
+      loader.stderr.on('data', function (data) { if (!isReloading) winston.error(CP + data); });
     }
   }
 
