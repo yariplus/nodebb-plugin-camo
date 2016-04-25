@@ -12,7 +12,7 @@
     "method": "reload"
   }, {
     "hook": "filter:admin.header.build",
-	"method": "addAdminNavigation"
+    "method": "addAdminNavigation"
   }, {
     "hook": "filter:parse.post",
     "method": "parsePost",

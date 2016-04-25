@@ -117,7 +117,7 @@ require(['settings', 'https://cdn.jsdelivr.net/clipboard.js/1.5.9/clipboard.min.
         settings.persist('camo', $('#camo'), function(){
             socket.emit('admin.settings.syncCamo');
         });
-        location.reload(); // ghetto... refreshes the page to see generated key
+        //location.reload(); // ghetto... refreshes the page to see generated key
     });
 
     $('[data-key="useCamoProxy"]').change(function() {
