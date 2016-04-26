@@ -103,32 +103,17 @@ require(['settings', 'https://cdn.jsdelivr.net/clipboard.js/1.5.9/clipboard.min.
         if (!$host.val().match(/https?:\/\/.*\//)) $host.val('https://' + $host.val() + '/');
     }
 
-    settings.sync('camo', $('#camo'), function () {
-        if ($('[data-key="useCamoProxy"]').is(':checked')) {
-            $('[data-key="key"]').attr('disabled', '');
-            $('[data-key="key"]').data('val', $('[data-key="key"]').val());
-        }
-    });
+    settings.sync('camo', $('#camo'));
 
     $('#save').click( function (event) {
-        if ($key.val() === 'internal') $key.val($key.data('val'));
         validateInputs();
 
         settings.persist('camo', $('#camo'), function(){
-            socket.emit('admin.settings.syncCamo');
+            socket.emit('admin.settings.syncCamo', {}, function(err, data){
+        // Refresh key.
+        $key.val(data.key);
+      });
         });
-        //location.reload(); // ghetto... refreshes the page to see generated key
-    });
-
-    $('[data-key="useCamoProxy"]').change(function() {
-        if($(this).is(":checked")) {
-            $('[data-key="key"]').attr('disabled', '');
-            $('[data-key="key"]').data('val', $('[data-key="key"]').val());
-            $('[data-key="key"]').val('internal');
-        } else {
-            $('[data-key="key"]').removeAttr('disabled');
-            $('[data-key="key"]').val($('[data-key="key"]').data('val'));
-        }
     });
 
 var template = "server {\n\
