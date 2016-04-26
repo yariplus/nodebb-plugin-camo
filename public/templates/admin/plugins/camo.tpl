@@ -1,7 +1,7 @@
 <form id="camo">
     <div class="row">
         <div class="col-lg-9">
-            <div class="panel acp-panel-primary">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="panel-title">
                         Camo Plugin Settings
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel acp-panel-primary">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="panel-title">
                         Internal Camo Proxy
@@ -60,8 +60,13 @@
                         </label>
                         <input type="number" class="form-control" data-key="port" id="port" placeholder="8082"></input>
                     </div>
-                    <br><br>
-                    <h5>NGINX Server Block Generation</h5>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    NGINX Server Block Generation
+                </div>
+                <div class="panel-body">
                     <div class="form-group">
                         <label class="control-label" for="sslCert">
                             SSL Certificate Location
@@ -79,7 +84,7 @@
             </div>
         </div>
         <div class="col-lg-3">
-            <div class="panel acp-panel-primary">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     Action Panel
                 </div>
