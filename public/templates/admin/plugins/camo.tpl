@@ -8,6 +8,9 @@
                     </div>
                 </div>
                 <div class="panel-body">
+                    <div class="alert alert-warning">
+                        For assistance setting up this plugin, please view <a href="https://community.nodebb.org/topic/8297/nodebb-plugin-camo-make-embedded-images-look-secure">the guide here</a>.
+                    </div>
                     <div class="form-group">
                         <label class="control-label" for="key">
                             Camo Host
@@ -46,6 +49,9 @@
                     </div>
                 </div>
                 <div class="panel-body">
+                    <div class="alert alert-warning">
+                        This plugin has the Camo Proxy embedded into it. If enabled, it will use the settings above and below. Saving these settings will start the proxy, no restart is required. The proxy will run in a seperate process from NodeBB on the port below.
+                    </div>
                     <div class="form-group">
                         <div class="checkbox">
                             <label for="useCamoProxy">
@@ -67,6 +73,9 @@
                     NGINX Server Block Generation
                 </div>
                 <div class="panel-body">
+                    <div class="alert alert-warning">
+                        If you are using NGINX, this plugin can copy a correctly formatted server block to your clipboard for you to paste it into your config file.
+                    </div>
                     <div class="form-group">
                         <label class="control-label" for="sslCert">
                             SSL Certificate Location
