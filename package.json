@@ -9,6 +9,7 @@
     "url": "https://github.com/minora-oss/nodebb-plugin-camo"
   },
   "scripts": {
+    "compile": "babel src -d .",
     "test": "echo \"Info: There are no tests specified yet\" && exit 0"
   },
   "keywords": [
@@ -44,5 +45,15 @@
   },
   "nbbpm": {
     "compatibility": "^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0 || ^1.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-plugin-transform-object-assign": "^6.8.0",
+    "babel-plugin-transform-object-rest-spread": "^6.8.0",
+    "babel-preset-es2015": "^6.9.0",
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.3",
+    "mocha": "^2.5.3",
+    "standard": "^7.1.2"
   }
 }

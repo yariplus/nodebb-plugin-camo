@@ -1,5 +1,10 @@
+# Error Logs
 npm-debug.log
+
+# NPM Modules
 node_modules/
+
+# Other?
 sftp-config.json
 *.sublime-project
 *.sublime-workspace
@@ -8,12 +13,14 @@ sftp-config.json
 *.swp
 error.log
 events.log
-.bithoundrc
-.gitattributes
-.gitignore
-.jshintrc
-.tern-project
-.travis.yml
+
+# Git Files
 contributing.md
 license.md
 readme.md
+
+# Dot Files
+.*
+
+# Source Files
+*.es6
