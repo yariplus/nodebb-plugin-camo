@@ -109,26 +109,25 @@
 
 <script>
 require(['settings', 'https://cdn.jsdelivr.net/clipboard.js/1.5.9/clipboard.min.js'], function(settings, Clipboard) {
+  var $key = $('[data-key="key"]');
+  var $host = $('[data-key="host"]');
 
-    var $key = $('[data-key="key"]');
-    var $host = $('[data-key="host"]');
+  function validateInputs() {
+    if (!$host.val().match(/https?:\/\/.*\//)) $host.val('https://' + $host.val() + '/');
+  }
 
-    function validateInputs() {
-        if (!$host.val().match(/https?:\/\/.*\//)) $host.val('https://' + $host.val() + '/');
-    }
+  settings.sync('camo', $('#camo'));
 
-    settings.sync('camo', $('#camo'));
+  $('#save').click( function (event) {
+    validateInputs();
 
-    $('#save').click( function (event) {
-        validateInputs();
-
-        settings.persist('camo', $('#camo'), function(){
-            socket.emit('admin.settings.syncCamo', {}, function(err, data){
-        // Refresh key.
+    settings.persist('camo', $('#camo'), function(){
+      socket.emit('admin.settings.syncCamo', {}, function(err, data){
+        // If the callback is called, we need to refresh the key.
         $key.val(data.key);
       });
-        });
     });
+  });
 
 var template = "server {\n\
     listen 443 ssl;\n\
