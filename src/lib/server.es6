@@ -30,15 +30,15 @@ const startProxy = data => {
   camo.once('exit', data => { info('C', 'CamoProxy is dead.') })
 }
 
-const killWorker = (data, callback) => {
+const killWorker = (data, callback = () => {}) => {
   if (camo && camo.connected) {
     info('C', 'Killing CamoProxy.')
     camo.kill('SIGHUP')
   }
-  if (typeof callback === 'function') callback()
+  callback()
 }
 
-// When the main process dies, 
-process.once('exit', killWorker)
+// When the main process dies, kill the worker.
+if (!(nconf.get('isPrimary') === 'true' && !nconf.get('jobsDisabled'))) process.once('exit', killWorker)
 
 export { startProxy, killWorker }

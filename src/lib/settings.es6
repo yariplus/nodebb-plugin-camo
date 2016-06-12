@@ -40,7 +40,7 @@ const init = callback => {
 }
 
 // Update settings when saving from the admin page.
-function syncCamo (callback) {
+function syncCamo (callback = () => {}) {
   settings.sync(() => {
     // Re-init the Camo url parser.
     const data = {
@@ -67,7 +67,7 @@ function syncCamo (callback) {
     }
   })
 
-  if (typeof callback === 'function') callback()
+  callback()
 }
 
 const addAdminNavigation = (header, callback) => {
