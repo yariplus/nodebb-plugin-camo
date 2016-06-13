@@ -1,26 +1,24 @@
-# Error Logs
-npm-debug.log
-
-# NPM Modules
-node_modules/
-
-# Other?
-sftp-config.json
-*.sublime-project
-*.sublime-workspace
-.project
-.idea
-*.swp
-error.log
-events.log
-
 # Git Files
 contributing.md
-license.md
-readme.md
 
 # Dot Files
 .*
 
 # Source Files
 *.es6
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# IntelliJ
+.idea
+
+# Eclipse
+.project
+
+# Other?
+sftp-config.json
+*.swp
+error.log
+events.log
