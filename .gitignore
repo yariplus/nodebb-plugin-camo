@@ -1,5 +1,6 @@
 # Coverage
 coverage
+.nyc_output/
 
 ### OSX ###
 .DS_Store
