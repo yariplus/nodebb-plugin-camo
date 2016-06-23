@@ -1,6 +1,6 @@
-import { startProxy, killWorker } from './server'
-import { setCamoUrl } from './parser'
-import { info } from './logger'
+import { info } from 'logger'
+import { setCamoUrl } from 'parser'
+import { startProxy, killWorker } from 'server'
 
 const nbbSettings = require.main.require('./src/settings')
 const pubsub = require.main.require('./src/pubsub')

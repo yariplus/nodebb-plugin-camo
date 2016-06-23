@@ -1,4 +1,4 @@
-import { info, warn } from './logger'
+import { info, warn } from 'logger'
 
 const nconf = require.main.require('nconf')
 
