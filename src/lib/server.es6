@@ -39,6 +39,6 @@ const killWorker = (data, callback = () => {}) => {
 }
 
 // When the main process dies, kill the worker.
-if (!(nconf.get('isPrimary') === 'true' && !nconf.get('jobsDisabled'))) process.once('exit', killWorker)
+if (nconf.get('isPrimary') === 'true' && !nconf.get('jobsDisabled')) process.once('exit', killWorker)
 
 export { startProxy, killWorker }
