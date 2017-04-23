@@ -10,4 +10,4 @@ export function init (params, callback) {
 
 export { addAdminNavigation } from './settings'
 export { reload } from './server'
-export { parseRaw, parsePost, parseSignature } from './parser'
+export { parseRaw, parsePost, parseSignature, parseAboutMe } from './parser'

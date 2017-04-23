@@ -28,4 +28,10 @@ const parseSignature = (data, callback) => {
   })
 }
 
-export { setCamoUrl, parseRaw, parsePost, parseSignature }
+const parseAboutMe = (data, callback) => {
+  parseRaw(data, (err, content) => {
+    callback(null, content)
+  })
+}
+
+export { setCamoUrl, parseRaw, parsePost, parseSignature, parseAboutMe }
