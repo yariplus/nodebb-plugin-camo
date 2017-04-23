@@ -33,6 +33,10 @@
     "hook": "filter:signature.parse",
     "method": "parseSignature",
     "priority": 100
+  }, {
+    "hook": "filter:parse.aboutme",
+    "method": "parseAboutMe",
+    "priority": 100
   }],
   "templates": "./public/templates"
 }
