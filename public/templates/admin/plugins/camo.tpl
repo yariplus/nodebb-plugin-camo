@@ -108,7 +108,7 @@
 </form>
 
 <script>
-require(['settings', 'https://cdn.jsdelivr.net/clipboard.js/1.5.9/clipboard.min.js'], function(settings, Clipboard) {
+require(['settings', '/plugins/nodebb-plugin-camo/public/vendor/clipboard.min.js'], function(settings, Clipboard) {
   var $key = $('[data-key="key"]');
   var $host = $('[data-key="host"]');
 

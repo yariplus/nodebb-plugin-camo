@@ -38,5 +38,8 @@
     "method": "parseAboutMe",
     "priority": 100
   }],
-  "templates": "./public/templates"
+  "templates": "./public/templates",
+  "staticDirs": {
+    "public": "public"
+  }
 }

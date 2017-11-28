@@ -126,3 +126,4 @@ atlassian-ide-plugin.xml
 
 # Distribution Files
 *.js
+!public/vendor/*.js
