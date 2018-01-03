@@ -18,7 +18,7 @@ const startProxy = data => {
   // Options for server fork.
   let options = {
     silent: true,
-    cwd: `${__dirname}/../node_modules/camo`,
+    cwd: require('path').join(__dirname, '..', 'node_modules', 'camo'),
     env: Object.assign(env, process.env)
   }
 
