@@ -1,33 +1,32 @@
 {
   "name": "nodebb-plugin-camo",
   "version": "1.4.3",
-  "homepage": "https://github.com/minora-oss/nodebb-plugin-camo",
+  "homepage": "https://github.com/panascais-incubator/nodebb-plugin-camo",
   "description": "Route embedded images through a secure camo proxy",
-  "main": "lib/camo.js",
+  "main": "lib/library.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/minora-oss/nodebb-plugin-camo"
+    "url": "https://github.com/panascais-incubator/nodebb-plugin-camo"
   },
   "scripts": {
-    "compile": "babel src -d .",
-    "pretest": "npm run compile",
-    "test": "nyc --require babel-register mocha test/**/*.es6"
+    "test": "nyc mocha test/*.js"
   },
   "keywords": [
     "nodebb",
     "plugin",
     "camo",
+    "insecure",
     "secure",
     "images"
   ],
   "author": {
-    "name": "Minora Network",
-    "email": "administrator@minora.io"
+    "name": "yariplus",
+    "email": "tafike@gmail.com"
   },
   "contributors": [
     {
       "name": "yariplus",
-      "email": "yariplus@minora.io"
+      "email": "tafike@gmail.com"
     },
     {
       "name": "lenovouser",
@@ -36,26 +35,22 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/minora-oss/nodebb-plugin-camo/issues",
-    "email": "issues@minora.io"
+    "url": "https://github.com/panascais-incubator/nodebb-plugin-camo/issues",
+    "email": "tafike@gmail.com"
   },
   "readmeFilename": "readme.md",
   "dependencies": {
-    "camo-url": "^0.1.3",
-    "camo": "git+https://github.com/atmos/camo.git#e6e9f047674f418a24034c68a80babce83573224"
+    "camo-url": "^0.2.0",
+    "camo": "git+https://github.com/atmos/camo.git#e59df56a01c023850962fac16905269d264fba50"
   },
   "nbbpm": {
     "compatibility": "^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0 || ^1.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.10.1",
-    "babel-plugin-transform-object-assign": "^6.8.0",
-    "babel-plugin-transform-object-rest-spread": "^6.8.0",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-register": "^6.9.0",
     "chai": "^3.5.0",
     "mocha": "^2.5.3",
     "nyc": "^6.4.4",
     "standard": "^7.1.2"
   }
 }
+
