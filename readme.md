@@ -5,7 +5,7 @@ nodebb-plugin-camo is a [NodeBB](https://github.com/NodeBB/NodeBB) plugin for ro
 ### Requirements
 nodebb-plugin-camo requires the following software to be installed:
 
-`nodebb >= 0.6.x`
+`NodeBB version 1.0.0 or greater.`
 
 ### Configuration
 
